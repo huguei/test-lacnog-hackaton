@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Net::DNS::Resolver;
+use Storable;
+use Test2::V0;
+use Test2::Tools::Subtest qw/subtest_buffered/;
+
+my $db    = shift;
+my $datos = retrieve($db);
+
+my $zone    = $datos->{'ZONE'};
+my $SERVERS = $datos->{'AUTHS'};
+
+foreach my $server (@$SERVERS) {
+    my $resolver = Net::DNS::Resolver->new(
+                       nameservers => [ $server ],
+                       recurse => 0,
+                       retrans => 1,
+                       retry => 2
+                   );
+
+################################
+#   ACÁ VA EL TEST EN ESPECÍFICO
+################################
+
+}
+
+done_testing;
+
